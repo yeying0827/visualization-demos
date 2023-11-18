@@ -29,14 +29,16 @@
     <g>
       <path
           d="M 50,50
-       L 0,50
-       A 6 6 30 0 1 10,20
-       Z" fill="#3cf"/>
+         L 0,50
+         A 6 6 30 0 1 10,20
+         Z"
+          fill="#3cf"/>
       <path
           d="M 50,50
        L 10,20
        A 6 6 0 1 1 20,10
-       Z" fill="yellow"/>
+       Z"
+          fill="yellow"/>
     </g>
   </svg>
 </template>

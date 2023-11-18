@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "d3-hierarchy": "1.1.5",
+    "earcut": "2.2.4",
+    "tess2": "^1.0.0",
     "vue": "^3.3.8",
     "vue-router": "^4.0.13",
     "vuex": "^4.0.2"

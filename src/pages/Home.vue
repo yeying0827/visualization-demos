@@ -29,6 +29,7 @@ const menus = [
   { path: '/axis', name: '使用向量和坐标系' },
   { path: '/vector', name: '向量的乘法' },
   { path: '/curve', name: '描述曲线' },
+  { path: '/polygon', name: '处理多边形' },
 ];
 </script>
 

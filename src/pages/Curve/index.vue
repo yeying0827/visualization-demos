@@ -13,7 +13,7 @@ const menus = [
   { path: '/curve/param', name: '使用参数方程' },
   { path: '/curve/high-level', name: '高阶参数方程' },
   { path: '/curve/canvas', name: '使用Canvas指令绘制曲线' },
-  { path: '/curve/svg', name: '使用Canvas指令绘制曲线' },
+  { path: '/curve/svg', name: '使用SVG属性绘制曲线' },
 ];
 </script>
 

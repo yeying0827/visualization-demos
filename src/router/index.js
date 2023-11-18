@@ -8,6 +8,7 @@ import webglBasis from "./routes/webgl-basis.js";
 import axis from "./routes/axis.js";
 import vector from "./routes/vector.js";
 import curve from "./routes/curve.js";
+import polygon from "./routes/polygon.js";
 
 const routes = [
     {
@@ -23,6 +24,7 @@ const routes = [
             axis,
             vector,
             curve,
+            polygon,
         ]
     }
 ];

@@ -66,6 +66,7 @@ onMounted(() => {
   // 将buffer数据绑定给顶点着色器的position变量
   const vPosition = gl.getAttribLocation(program, 'position'); // 获取顶点着色器中position变量的地址
   // 创建一个指向调用gl.bindBuffer()指定的缓冲区的指针，并把它保存在vPosition中，在后面由顶点着色器使用
+  // 每两个点代表一个顶点信息
   gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0); // 给变量设置长度和类型
   gl.enableVertexAttribArray(vPosition); // 激活变量
 

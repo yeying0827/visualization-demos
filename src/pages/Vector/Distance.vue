@@ -5,6 +5,7 @@
 
 <script setup>
 import Vector2D from "../../utils/vector2d.js";
+import Canvas2D from "../../utils/Canvas.js";
 import {onMounted} from "vue";
 
 onMounted(() => {
@@ -12,16 +13,11 @@ onMounted(() => {
   let map = new Map();
   let canvas = document.querySelector('canvas'),
       ctx = canvas.getContext('2d');
-  translateCoordinate(); // 变换坐标系
+  const canvas2d = new Canvas2D(ctx);
+
   initPoints(); // 初始化三个点
   draw(); // 绘图
   initEvents(); // 事件初始化
-
-
-  function translateCoordinate() {
-    ctx.translate(canvas.width / 2, canvas.height / 2);
-    ctx.scale(1, -1);
-  }
 
   function initPoints() {
     v0 = new Vector2D(0, 0);
@@ -33,7 +29,7 @@ onMounted(() => {
   }
 
   function draw() {
-    drawAxis();
+    canvas2d.drawAxis();
 
     for(const p of map) {
       drawPoint(p[1], p[0]);
@@ -43,13 +39,8 @@ onMounted(() => {
     drawLines();
   }
 
-  function drawAxis() {
-    drawLine([-canvas.width / 2, 0], [canvas.width / 2, 0], "#333");
-    drawLine([0, canvas.height / 2], [0, -canvas.height / 2], "#333");
-  }
-
   function drawBaseline() {
-    drawLine(map.get('Q'), map.get('R'), "blue");
+    canvas2d.drawLine(map.get('Q'), map.get('R'), "blue");
   }
 
   // 绘制坐标点
@@ -78,33 +69,21 @@ onMounted(() => {
     map.set('N', n);
     if (result < 0) {
       // 角PQR为钝角
-      drawLine(map.get('Q'), map.get('P'), 'red');
-      drawLine(map.get('P'), n, 'green');
+      canvas2d.drawLine(map.get('Q'), map.get('P'), 'red');
+      canvas2d.drawLine(map.get('P'), n, 'green');
       d = QP.len;
     } else if (result > Math.pow(QR.len, 2)) {
       // 角PRQ为钝角
-      drawLine(map.get('R'), map.get('P'), 'red');
-      drawLine(map.get('P'), n, 'green');
+      canvas2d.drawLine(map.get('R'), map.get('P'), 'red');
+      canvas2d.drawLine(map.get('P'), n, 'green');
       d = RP.len;
     } else {
       d = dLine;
-      drawLine(map.get('P'), n, 'red');
+      canvas2d.drawLine(map.get('P'), n, 'red');
     }
 
     let text = `点P到线段QR的距离：${Math.floor(d)}, 点P到QR所在直线的距离为${Math.floor(dLine)}`;
-    drawText(text);
-  }
-
-  function drawLine(start, end, color) {
-    ctx.beginPath();
-    ctx.save();
-    ctx.lineWidth = '4px';
-    ctx.strokeStyle = color;
-    ctx.moveTo(...start);
-    ctx.lineTo(...end);
-    ctx.stroke();
-    ctx.restore();
-    ctx.closePath();
+    canvas2d.drawText(text, -250, 240);
   }
 
   function getN2() {
@@ -121,15 +100,6 @@ onMounted(() => {
         QN.y + Q.y
     );
     return N;
-  }
-
-  function drawText(distance) {
-    ctx.beginPath();
-    ctx.save();
-    ctx.font = "16px serif";
-    ctx.scale(1, -1);
-    ctx.fillText(`${distance}`, -250, 240);
-    ctx.restore();
   }
 
   function initEvents() {

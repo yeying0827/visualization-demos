@@ -4,6 +4,7 @@
 
 <script setup>
 import {onMounted} from "vue";
+import WebGL from "../../utils/WebGL.js";
 
 onMounted(() => {
   const canvas = document.querySelector('canvas');
@@ -25,20 +26,7 @@ onMounted(() => {
     }
   `;
 
-  const vertexShader = gl.createShader(gl.VERTEX_SHADER);
-  gl.shaderSource(vertexShader, vertex);
-  gl.compileShader(vertexShader);
-  const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
-  gl.shaderSource(fragmentShader, fragment);
-  gl.compileShader(fragmentShader);
-
-  const program = gl.createProgram();
-  gl.attachShader(program, vertexShader);
-  gl.attachShader(program, fragmentShader);
-  gl.linkProgram(program);
-
-  gl.useProgram(program);
-
+  const webgl = new WebGL(gl, vertex, fragment);
 
   function createCircleVertex(x, y, r, n) {
     const sin = Math.sin;
@@ -83,18 +71,8 @@ onMounted(() => {
     1, 1,
     1, -1
   ]); */
-
-  const buffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-  gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
-
-  const vPosition = gl.getAttribLocation(program, 'position');
-  gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
-  gl.enableVertexAttribArray(vPosition);
-
-  gl.clear(gl.COLOR_BUFFER_BIT);
-  // gl.drawArrays(gl.TRIANGLE_FAN, 0, points.length / 2);
-  gl.drawArrays(gl.LINE_STRIP, 0, points.length / 2);
+  // webgl.drawSimple(points, gl.TRIANGLE_FAN);
+  webgl.drawSimple(points);
 });
 </script>
 
