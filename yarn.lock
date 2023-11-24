@@ -434,6 +434,11 @@ needle@^3.1.0:
     iconv-lite "^0.6.3"
     sax "^1.2.4"
 
+ogl@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/ogl/-/ogl-1.0.3.tgz#e8812e9673ece650df68f59976039dae35696dc0"
+  integrity sha512-MOpTaRVZB5ekoBbLp3ANLQVxm9/QgREkwT0/O+tkc73ElIOAxedUFv+F6vSfVtG1m5TuYKaTUsFexXvCkHuhSw==
+
 parse-node-version@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parse-node-version/-/parse-node-version-1.0.1.tgz#e2b5dbede00e7fa9bc363607f53327e8b073189b"

@@ -50,7 +50,7 @@ export default class Canvas2D {
     }
 
     // 多边形描边
-    strokePolygon(vertices, strokeStyle) {
+    strokePolygon(vertices, strokeStyle, close = true) {
         const {ctx} = this;
 
         ctx.beginPath();
@@ -58,7 +58,7 @@ export default class Canvas2D {
         for (let i = 1; i < vertices.length; i ++) {
             ctx.lineTo(...vertices[i]);
         }
-        ctx.closePath();
+        if (close) ctx.closePath();
         if (strokeStyle) ctx.strokeStyle = strokeStyle;
         ctx.stroke();
     }

@@ -4,8 +4,10 @@ import {tess2Triangulation} from "./polygon.js";
 export default class WebGL {
     constructor(gl, vertex, fragment) {
         this.gl = gl;
+        // 设置shader对应的GLSL代码
         this.vertex = vertex;
         this.fragment = fragment;
+        // 创建WebGL程序
         this.program = null;
         this.createWebGLProgram();
     }
@@ -26,11 +28,20 @@ export default class WebGL {
         gl.linkProgram(program);
         gl.useProgram(program);
 
+        // 检测着色器
+        if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+            alert(gl.getShaderInfoLog(vertexShader));
+        }
+        // 检测着色器程序
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            alert(gl.getProgramInfoLog(program));
+        }
+
         this.program = program;
     }
 
-    // 读取顶点数据到缓冲区
-    buffer (data) {
+    // 把顶点数据写到缓冲区
+    bufferPosition (data) {
         const { gl } = this;
 
         if (!(data instanceof Float32Array)) {
@@ -43,6 +54,17 @@ export default class WebGL {
             data,
             gl.STATIC_DRAW
         )
+    }
+    /*
+    * 将缓冲区数据读取到GPU：
+    * 将顶点的buffer数据绑定给顶点着色器的position变量
+    * */
+    readPosition() {
+        const {gl, program} = this;
+
+        const vPosition = gl.getAttribLocation(program, 'position');
+        gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(vPosition);
     }
 
     drawSimple(points, mode) {
@@ -66,7 +88,7 @@ export default class WebGL {
     }
 
     drawPolygon(points, triangles, color = [1, 0, 0, 1], mode) {
-        const {gl} = this;
+        const {gl, program} = this;
 
         // 使用着色器程序
         // 1.定义顶点和三角剖分后的元素
@@ -78,12 +100,12 @@ export default class WebGL {
         gl.bufferData(gl.ARRAY_BUFFER, position, gl.STATIC_DRAW);
         // 将缓冲区数据读取到GPU
         // 将buffer数据绑定给顶点着色器的position变量
-        const vPosition = gl.getAttribLocation(this.program, 'position');
+        const vPosition = gl.getAttribLocation(program, 'position');
         // 创建一个指向WebGL缓冲区的指针，并保存在vPosition中，在后面由顶点着色器使用
         gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(vPosition); // 激活变量
 
-        let uColor = gl.getUniformLocation(this.program, 'uColor'); // 设置颜色
+        let uColor = gl.getUniformLocation(program, 'uColor'); // 设置颜色
         gl.uniform4fv(uColor, color);
 
         const cellBuffer = gl.createBuffer();
@@ -97,7 +119,7 @@ export default class WebGL {
 
     drawTriangle(points, { color  } = {}) {
         const { gl, program }= this
-        this.buffer(points.flat());
+        this.bufferPosition(points.flat());
 
         const vPosition = gl.getAttribLocation(program, 'position')
         gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0)

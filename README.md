@@ -9,3 +9,7 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ## 在线预览
 
 [Online Preview](https://yeying0827.github.io/visualization-demos/)
+
+## 学习笔记
+
+[Notes](https://github.com/yeying0827/learnFE/tree/master/learn_visualization/notes)
