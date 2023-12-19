@@ -59,10 +59,17 @@ onMounted(() => {
           cells: star.triangles
         }, point)
     ) {
-      webgl.drawPolygon(star.points, star.triangles, [0, .5, 0, 1]);
+      webgl.drawPolygon(
+          star.points,
+          star.triangles,
+          [['uColor', [0, .5, 0, 1], '4fv']]
+      );
       // console.log('in');
     } else {
-      webgl.drawPolygon(star.points, star.triangles);
+      webgl.drawPolygon(
+          star.points,
+          star.triangles
+      );
       // console.log('out');
     }
   });
@@ -75,7 +82,11 @@ onMounted(() => {
   };
   ellipseArr.points = ellipseArr.vertices.flat();
   ellipseArr.triangles = earcutTriangulation(ellipseArr.points);
-  webgl2.drawPolygon(ellipseArr.points, ellipseArr.triangles, [.5, .8, .5, 1]);
+  webgl2.drawPolygon(
+      ellipseArr.points,
+      ellipseArr.triangles,
+      [['uColor', [.5, .8, .5, 1], '4fv']]
+  );
 
   canvas2 = document.querySelector('#five');
   gl2 = canvas2.getContext('webgl');
@@ -98,7 +109,12 @@ onMounted(() => {
   fiveArr.points = fiveArr.vertices.flat();
   fiveArr.triangles = earcutTriangulation(fiveArr.points);
   // console.log('earcut', fiveArr.triangles);
-  webgl2.drawPolygon(fiveArr.points, fiveArr.triangles, [.5, .5, .8, 1], gl.LINE_LOOP);
+  webgl2.drawPolygon(
+      fiveArr.points,
+      fiveArr.triangles,
+      [['uColor', [.5, .5, .8, 1], '4fv']],
+      gl.LINE_LOOP
+  );
 });
 </script>
 

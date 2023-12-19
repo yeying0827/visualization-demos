@@ -31,6 +31,7 @@ const menus = [
   { path: '/curve', name: '描述曲线' },
   { path: '/polygon', name: '处理多边形' },
   { path: '/transform', name: '仿射变换' },
+  { path: '/color', name: '颜色表示' },
 ];
 </script>
 

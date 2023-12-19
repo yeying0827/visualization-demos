@@ -8,6 +8,7 @@ import vector from "./vector.js"; // 向量的乘法
 import curve from "./curve.js"; // 描述曲线
 import polygon from "./polygon.js"; // 处理多边形
 import transform from "./transform.js"; // 仿射变换
+import color from "./color.js"; // 颜色表示
 
 export default [
     {
@@ -25,6 +26,7 @@ export default [
             curve,
             polygon,
             transform,
+            color,
         ]
     }
 ]

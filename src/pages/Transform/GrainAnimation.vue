@@ -79,7 +79,7 @@ onMounted(() => {
     varying float vP;
 
     void main() {
-      gl_FragColor.xyz = u_color.xyz;
+      gl_FragColor.rgb = u_color.rgb;
       gl_FragColor.a = (1.0 - vP) * u_color.a; // 让alpha值随着vP值变化；实现粒子的淡出效果
     }
   `;
@@ -119,27 +119,15 @@ function update() {
 * 将随机三角形的信息传给shader中的uniform变量
 * */
 function setUniforms({u_color, u_rotation, u_scale, u_time, u_duration, u_dir}) {
-  const {gl, program} = webgl;
-
-  // gl.getUniformLocation 获取uniform变量的指针
-  let loc = gl.getUniformLocation(program, 'u_color');
-  // 将数据传给uniform变量的地址
-  gl.uniform4fv(loc, u_color);
-
-  loc = gl.getUniformLocation(program, 'u_rotation');
-  gl.uniform1f(loc, u_rotation);
-
-  loc = gl.getUniformLocation(program, 'u_scale');
-  gl.uniform1f(loc, u_scale);
-
-  loc = gl.getUniformLocation(program, 'u_time');
-  gl.uniform1f(loc, u_time);
-
-  loc = gl.getUniformLocation(program, 'u_duration');
-  gl.uniform1f(loc, u_duration);
-
-  loc = gl.getUniformLocation(program, 'u_dir');
-  gl.uniform2fv(loc, u_dir);
+  const uniforms = [
+      ['u_color', u_color, '4fv'],
+      ['u_rotation', u_rotation, '1f'],
+      ['u_scale', u_scale, '1f'],
+      ['u_time', u_time, '1f'],
+      ['u_duration', u_duration, '1f'],
+      ['u_dir', u_dir, '2fv']
+  ];
+  webgl.setUniforms(uniforms);
 }
 
 /*

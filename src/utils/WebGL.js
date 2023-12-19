@@ -67,7 +67,38 @@ export default class WebGL {
         gl.enableVertexAttribArray(vPosition);
     }
 
-    drawSimple(points, mode) {
+    /**
+     * 设置uniform变量
+     * @param uniforms 变量数组
+     */
+    setUniforms(uniforms) {
+        const {gl, program} = this;
+
+        let uniform;
+        uniforms.forEach(item => {
+            // gl.getUniformLocation 获取uniform变量的指针
+            uniform = gl.getUniformLocation(program, item[0]); // 设置uniform变量
+            // 将数据传给uniform变量的地址
+            switch(item[2]) {
+                case '4fv':
+                    gl.uniform4fv(uniform, item[1]); break;
+                case '2fv':
+                    gl.uniform2fv(uniform, item[1]); break;
+                case '1f':
+                    gl.uniform1f(uniform, item[1]); break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    /**
+     * 绘制简单的三角形
+     * @param points 顶点数组
+     * @param size 构成一个顶点的坐标向量长度
+     * @param mode 绘图模式
+     */
+    drawSimple(points, size = 2, mode) {
         const {gl} = this;
 
         if (!(points instanceof Float32Array)) {
@@ -79,15 +110,30 @@ export default class WebGL {
         gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
 
         const vPosition = gl.getAttribLocation(this.program, 'position');
-        gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
+        gl.vertexAttribPointer(vPosition, size, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(vPosition);
 
         gl.clear(gl.COLOR_BUFFER_BIT);
-        // gl.drawArrays(gl.TRIANGLE_FAN, 0, points.length / 2);
-        gl.drawArrays(mode || gl.LINE_STRIP, 0, points.length / 2);
+        // gl.drawArrays(gl.TRIANGLE_FAN, 0, points.length / size);
+        gl.drawArrays(mode || gl.LINE_STRIP, 0, points.length / size);
     }
 
-    drawPolygon(points, triangles, color = [1, 0, 0, 1], mode) {
+    /**
+     * 绘制多边形（earcut）
+     * @param points 顶点数组
+     * @param triangles 剖分后的三角形数组（earcut三角剖分）
+     * @param uniforms 传递的uniform字段
+     * @param mode 绘图模式
+     * @param clear 是否清除画布
+     */
+    drawPolygon(points,
+                triangles,
+                uniforms = [
+                    ['uColor', [1, 0, 0, 1], '4fv']
+                ],
+                mode,
+                clear = true
+    ) {
         const {gl, program} = this;
 
         // 使用着色器程序
@@ -105,15 +151,14 @@ export default class WebGL {
         gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(vPosition); // 激活变量
 
-        let uColor = gl.getUniformLocation(program, 'uColor'); // 设置颜色
-        gl.uniform4fv(uColor, color);
+        this.setUniforms(uniforms);
 
         const cellBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cellBuffer);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, cells, gl.STATIC_DRAW);
 
         // 执行着色器程序完成绘制
-        gl.clear(gl.COLOR_BUFFER_BIT);
+        if (clear) gl.clear(gl.COLOR_BUFFER_BIT);
         gl.drawElements(mode || gl.TRIANGLES, cells.length, gl.UNSIGNED_SHORT, 0);
     }
 
@@ -131,6 +176,12 @@ export default class WebGL {
         gl.drawArrays(/*gl.LINE_LOOP*/gl.TRIANGLES, 0, points.length);
     }
 
+    /**
+     * 绘制多边形（TESS2）
+     * @param points 顶点数组
+     * @param color 填充色
+     * @param rule 剖分规则
+     */
     drawPolygonTess2(points, {
         color,
         rule = WINDING_ODD/*WINDING_NONZERO*/
