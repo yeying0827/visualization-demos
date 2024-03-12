@@ -45,27 +45,27 @@
 import { Mat4 } from 'ogl';
 import {onMounted} from "vue";
 
-const rad = Math.PI / 4;
+const rad = - Math.PI / 4;
 
-// 行主序
+// 列主序
 let a1 = new Mat4(
     // 旋转矩阵
     1, 0,   0,             0, // 绕X轴旋转
-    0, Math.cos(rad), -Math.sin(rad), 0,
-    0, Math.sin(rad), Math.cos(rad),  0,
+    0, Math.cos(rad), Math.sin(rad), 0,
+    0, -Math.sin(rad), Math.cos(rad),  0,
     0, 0,   0,              1
 );
 let a2 = new Mat4(
     // 旋转矩阵
-    Math.cos(rad),  0, Math.sin(rad),  0,
+    Math.cos(rad),  0, -Math.sin(rad),  0,
     0,         1, 0,         0, // 绕Y轴旋转
-    -Math.sin(rad), 0, Math.cos(rad),  0,
+    Math.sin(rad), 0, Math.cos(rad),  0,
     0,         0, 0,         1
 );
 let a3 = new Mat4(
     // 旋转矩阵
-    Math.cos(rad), -Math.sin(rad),0, 0,
-    Math.sin(rad), Math.cos(rad), 0, 0,
+    Math.cos(rad), Math.sin(rad),0, 0,
+    -Math.sin(rad), Math.cos(rad), 0, 0,
     0,   0,             1, 0, // 绕Z轴旋转
     0,   0,             0, 1
 );

@@ -1,28 +1,25 @@
-import Transform from '../../pages/Transform/index.vue';
-import TransformGrainAnimation from '../../pages/Transform/GrainAnimation.vue';
-import TransformCSS from '../../pages/Transform/CSS.vue';
-import TransformCSS3D from '../../pages/Transform/CSS3D.vue';
+const _import = (path) => () => import(`../../pages/Transform/${path}.vue`);
 
 export default {
     path: 'transform',
     name: 'Transform',
-    component: Transform,
+    component: _import('index'),
     redirect: '/transform/grain-animation',
     children: [
         {
             path: 'grain-animation',
             name: 'TransformGrainAnimation',
-            component: TransformGrainAnimation
+            component: _import('GrainAnimation')
         },
         {
             path: 'css',
             name: 'TransformCSS',
-            component: TransformCSS
+            component: _import('CSS')
         },
         {
             path: 'css-3d',
             name: 'TransformCSS3D',
-            component: TransformCSS3D
+            component: _import('CSS3D')
         }
     ]
 }

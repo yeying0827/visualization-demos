@@ -1,22 +1,20 @@
-import Vector from '../../pages/Vector/index.vue';
-import VectorBasis from '../../pages/Vector/Basis.vue';
-import VectorDistance from '../../pages/Vector/Distance.vue';
+const _import = (path) => () => import(`../../pages/Vector/${path}.vue`);
 
 export default {
     path: '/vector',
     name: 'Vector',
-    component: Vector,
+    component: _import('index'),
     redirect: '/vector/basis',
     children: [
         {
             path: 'basis',
             name: 'VectorBasis',
-            component: VectorBasis
+            component: _import('Basis')
         },
         {
             path: 'distance',
             name: 'VectorDistance',
-            component: VectorDistance
+            component: _import('Distance')
         }
     ]
 }

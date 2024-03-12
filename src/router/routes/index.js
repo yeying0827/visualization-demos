@@ -1,4 +1,5 @@
 import Home from "../../pages/Home.vue";
+import Demo from "../../pages/Demo.vue";
 import compare from "./compare.js"; // 常见绘图系统
 import directive from "./directive.js"; // 指令式绘图系统
 import statement from "./statement.js"; // 声明式绘图系统
@@ -9,6 +10,7 @@ import curve from "./curve.js"; // 描述曲线
 import polygon from "./polygon.js"; // 处理多边形
 import transform from "./transform.js"; // 仿射变换
 import color from "./color.js"; // 颜色表示
+import pattern from "./pattern.js"; // 颜色表示
 
 export default [
     {
@@ -27,6 +29,12 @@ export default [
             polygon,
             transform,
             color,
+            pattern,
         ]
+    },
+    {
+        path: '/demo',
+        name: 'Demo',
+        component: Demo
     }
 ]

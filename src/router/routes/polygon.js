@@ -1,40 +1,35 @@
-import Polygon from '../../pages/Polygon/index.vue';
-import PolygonCanvas2DFill from '../../pages/Polygon/Canvas2DFill.vue';
-import PolygonCanvas2DCheck from '../../pages/Polygon/Canvas2DCheck.vue';
-import PolygonWebGLFill from '../../pages/Polygon/WebGLFill.vue';
-import PolygonWebGLCheck from '../../pages/Polygon/WebGLCheck.vue';
-import PolygonTess2Fill from '../../pages/Polygon/Tess2Fill.vue';
+const _import = (path) => () => import(`../../pages/Polygon/${path}.vue`);
 
 export default {
     path: '/polygon',
     name: 'Polygon',
-    component: Polygon,
+    component: _import('index'),
     redirect: '/polygon/canvas2d-fill',
     children: [
         {
             path: 'canvas2d-fill',
             name: 'PolygonCanvas2DFill',
-            component: PolygonCanvas2DFill
+            component: _import('Canvas2DFill')
         },
         {
             path: 'canvas2d-check',
             name: 'PolygonCanvas2DCheck',
-            component: PolygonCanvas2DCheck
+            component: _import('Canvas2DCheck')
         },
         {
             path: 'webgl-fill',
             name: 'PolygonWebGLFill',
-            component: PolygonWebGLFill
+            component: _import('WebGLFill')
         },
         {
             path: 'webgl-check',
             name: 'PolygonWebGLCheck',
-            component: PolygonWebGLCheck
+            component: _import('WebGLCheck')
         },
         {
             path: 'tess2-triangulation',
-            name: 'tess2-PolygonTess2Fill',
-            component: PolygonTess2Fill
+            name: 'PolygonTess2Fill',
+            component: _import('Tess2Fill')
         }
     ]
 }

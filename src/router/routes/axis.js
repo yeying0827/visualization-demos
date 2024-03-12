@@ -1,28 +1,25 @@
-import Axis from '../../pages/Axis/index.vue';
-import AxisBasis from '../../pages/Axis/Basis.vue';
-import AxisTransform from '../../pages/Axis/Transform.vue';
-import AxisTree from '../../pages/Axis/Tree.vue';
+const _import = (path) => () => import(`../../pages/Axis/${path}.vue`);
 
 export default {
     path: 'axis',
     name: 'Axis',
-    component: Axis,
+    component: _import('index'),
     redirect: '/axis/basis',
     children: [
         {
             path: 'basis',
             name: 'AxisBasis',
-            component: AxisBasis
+            component: _import('Basis')
         },
         {
             path: 'transform',
             name: 'AxisTransform',
-            component: AxisTransform
+            component: _import('Transform')
         },
         {
             path: 'tree',
             name: 'AxisTree',
-            component: AxisTree
+            component: _import('Tree')
         }
     ]
 }

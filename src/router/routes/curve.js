@@ -1,40 +1,35 @@
-import Curve from '../../pages/Curve/index.vue';
-import CurveVector from '../../pages/Curve/Vector.vue';
-import CurveParam from '../../pages/Curve/Param.vue';
-import CurveHighLevel from '../../pages/Curve/HighLevel.vue';
-import CurveCanvas from '../../pages/Curve/Canvas.vue';
-import CurveSVG from '../../pages/Curve/SVG.vue';
+const _import = (path) => () => import(`../../pages/Curve/${path}.vue`);
 
 export default {
     path: '/curve',
     name: 'Curve',
-    component: Curve,
+    component: _import('index'),
     redirect: '/curve/vector',
     children: [
         {
             path: 'vector',
             name: 'CurveVector',
-            component: CurveVector
+            component: _import('Vector')
         },
         {
             path: 'param',
             name: 'CurveParam',
-            component: CurveParam
+            component: _import('Param')
         },
         {
             path: 'high-level',
             name: 'CurveHighLevel',
-            component: CurveHighLevel
+            component: _import('HighLevel')
         },
         {
             path: 'canvas',
             name: 'CurveCanvas',
-            component: CurveCanvas
+            component: _import('Canvas')
         },
         {
             path: 'svg',
             name: 'CurveSVG',
-            component: CurveSVG
+            component: _import('SVG')
         }
     ]
 }

@@ -1,22 +1,20 @@
-import Statement from "../../pages/Statement/index.vue";
-import StatementShape from "../../pages/Statement/Shape.vue";
-import StatementHierarchy from "../../pages/Statement/Hierarchy.vue";
+const _import = (path) => () => import(`../../pages/Statement/${path}.vue`);
 
 export default {
     path: 'statement',
     name: 'Statement',
-    component: Statement,
+    component: _import('index'),
     redirect: '/statement/shape',
     children: [
         {
             path: 'shape',
             name: 'StatementShape',
-            component: StatementShape
+            component: _import('Shape')
         },
         {
             path: 'hierarchy',
             name: 'StatementHierarchy',
-            component: StatementHierarchy
+            component: _import('Hierarchy')
         }
     ]
 }

@@ -59,10 +59,10 @@ export default class WebGL {
     * 将缓冲区数据读取到GPU：
     * 将顶点的buffer数据绑定给顶点着色器的position变量
     * */
-    readPosition() {
+    readPosition(positionName = "position") {
         const {gl, program} = this;
 
-        const vPosition = gl.getAttribLocation(program, 'position');
+        const vPosition = gl.getAttribLocation(program, positionName);
         gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
         gl.enableVertexAttribArray(vPosition);
     }

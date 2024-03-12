@@ -1,7 +1,7 @@
 <template>
   <h3>用SVG+d3绘制层次关系图</h3>
   <h1 id="city-name"></h1>
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1600 1600"></svg>
+  <svg id="hierarchy" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1600 1600"></svg>
 </template>
 
 <script setup>
@@ -10,7 +10,7 @@ import * as d3 from 'd3-hierarchy';
 
 onMounted(() => {
   // 获取SVG对象
-  const svgroot = document.querySelector('svg');
+  const svgroot = document.querySelector('svg#hierarchy');
 
   const dataSource = 'https://s5.ssl.qhres2.com/static/b0695e2dd30daa64.json';
 

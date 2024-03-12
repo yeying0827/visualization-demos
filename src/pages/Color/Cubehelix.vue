@@ -18,7 +18,7 @@ onMounted(() => {
 
   function update(t) {
     const p = 0.5 + 0.5 * Math.sin(t / T);
-    console.log(p);
+    // console.log(p);
     ctx.clearRect(-256, -256, 512, 512);
     const {r, g, b} = color(p);
     ctx.fillStyle = `rgb(${255 * r}, ${255 * g}, ${255 * b})`;

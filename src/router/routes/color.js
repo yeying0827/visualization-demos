@@ -1,40 +1,35 @@
-import Color from '../../pages/Color/index.vue';
-import ColorRGB from '../../pages/Color/RGB.vue';
-import ColorHSL from '../../pages/Color/HSL.vue';
-import ColorCIE from '../../pages/Color/CIE.vue';
-import ColorCubehelix from '../../pages/Color/Cubehelix.vue';
-import ColorWebGL from '../../pages/Color/WebGL.vue';
+const _import = (path) => () => import(`../../pages/Color/${path}.vue`);
 
 export default {
     path: '/color',
     name: 'Color',
-    component: Color,
+    component: _import('index'),
     redirect: '/color/rgb',
     children: [
         {
             path: 'rgb',
             name: 'ColorRGB',
-            component: ColorRGB
+            component: _import('RGB')
         },
         {
             path: 'hsl',
             name: 'ColorHSL',
-            component: ColorHSL
+            component: _import('HSL')
         },
         {
             path: 'cie',
             name: 'ColorCIE',
-            component: ColorCIE
+            component: _import('CIE')
         },
         {
             path: 'cubehelix',
             name: 'ColorCubehelix',
-            component: ColorCubehelix
+            component: _import('Cubehelix')
         },
         {
             path: 'webgl',
             name: 'ColorWebGL',
-            component: ColorWebGL
+            component: _import('WebGL')
         }
     ]
 }

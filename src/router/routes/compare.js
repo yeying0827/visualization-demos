@@ -1,22 +1,20 @@
-import Compare from "../../pages/Compare/index.vue";
-import CompareCss from "../../pages/Compare/CSS.vue";
-import CompareSvg from "../../pages/Compare/SVG.vue";
+const _import = (path) => () => import(`../../pages/Compare/${path}.vue`);
 
 export default {
     path: 'compare',
     name: 'Compare',
-    component: Compare,
+    component: _import('index'),
     redirect: '/compare/css',
     children: [
         {
             path: 'css',
             name: 'CompareCss',
-            component: CompareCss
+            component: _import('CSS')
         },
         {
             path: 'svg',
             name: 'CompareSvg',
-            component: CompareSvg
+            component: _import('SVG')
         }
     ]
 }

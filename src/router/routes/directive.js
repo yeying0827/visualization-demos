@@ -1,22 +1,20 @@
-import Directive from "../../pages/Directive/index.vue";
-import DirectiveShape from "../../pages/Directive/Shape.vue";
-import DirectiveHierarchy from "../../pages/Directive/Hierarchy.vue";
+const _import = (path) => () => import(`../../pages/Directive/${path}.vue`);
 
 export default {
     path: 'directive',
     name: 'Directive',
-    component: Directive,
+    component: _import('index'),
     redirect: '/directive/shape',
     children: [
         {
             path: 'shape',
             name: 'DirectiveShape',
-            component: DirectiveShape
+            component: _import('Shape')
         },
         {
             path: 'hierarchy',
             name: 'DirectiveHierarchy',
-            component: DirectiveHierarchy
+            component: _import('Hierarchy')
         }
     ]
 }

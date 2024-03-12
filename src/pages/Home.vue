@@ -32,6 +32,7 @@ const menus = [
   { path: '/polygon', name: '处理多边形' },
   { path: '/transform', name: '仿射变换' },
   { path: '/color', name: '颜色表示' },
+  { path: '/pattern', name: '图案生成' },
 ];
 </script>
 
