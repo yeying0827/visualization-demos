@@ -93,7 +93,7 @@ const fragment1 = `
     vec2 fpos = fract(st); // fraction
 
     vec3 color = vec3(step(random(ipos), 0.7)); // 1,1,1 或 0,0,0
-    color *= step(0.2, fpos.y); // y小数部分小于0.2时，step结果为0，color乘以0，则为黑色，黑色作为分割线
+    color *= step(0.2, fpos.y); // y小数部分小于0.2时，step结果为0，color乘以0，则为黑色，黑色作为分割线且宽度为0.2
 
     gl_FragColor.rgb = color;
     gl_FragColor.a = 1.0;
@@ -117,9 +117,9 @@ const fragment2 = `
                   * 43758.5453123);
   }
 
-  // _index范围：(-1, 1)
+  //  _index：实参'random(ipos)'范围：(-1, 1)
   vec2 truchetPattern(in vec2 _st, in float _index) {
-    _index = fract((_index - 0.5) * 2.0); // (_index - 0.5) * 2.0 范围：(-3.0, 1.0)
+    // _index = fract((_index - 0.5) * 2.0); // (_index - 0.5) * 2.0 范围：(-3.0, 1.0)
     if (_index > 0.75) {
       _st = vec2(1.0) - _st; // 类似于取补码
     } else if (_index > 0.5) {
@@ -128,7 +128,8 @@ const fragment2 = `
       // https://www.jianshu.com/p/3d7605a02516
       // float/vec2/vec3/vec4  包含 1，2，3，4 个浮点型向量
       // 所以1.0可以表示包含一个浮点数的向量？？
-      _st = 1.0 - vec2(1.0 - _st.x, _st.y);
+      // _st = 1.0 - vec2(1.0 - _st.x, _st.y);
+      _st = vec2(_st.x, 1.0 - _st.y);
     }
     return _st;
   }
@@ -140,6 +141,7 @@ const fragment2 = `
     vec2 fpos = fract(st); // fraction
 
     // 每一个方块内部的random(ipos)都是一样的
+    // ipo的取值：x,y都是0,1,2...rows
     vec2 tile = truchetPattern(fpos, random(ipos));
     float color = 0.0;
 
@@ -161,7 +163,7 @@ const fragment2 = `
     // vec2 ipos = floor(st); // integer
     // vec2 fpos = fract(st); // fraction
     // float d;
-    // // 原理：基于两条直线方程，y=x 和 y=1-x，分别有50%的概率画出来
+    // // 原理：基于两条直线方程，y=x 和 y=1-x
     // if (random(ipos) >= 0.5) {
     //     d = abs(fpos.y + fpos.x - 1.0);
     // } else {
@@ -225,7 +227,7 @@ const customProgramAndDatas = type => {
 
 const bufferDataAndRender = () => {
   // 将顶点数据写入缓冲区
-  // !!切换着色器之后要重新绑定缓冲区。
+  // !!切换着色器之后要重新绑定缓冲区，否则会报vertex缓存空间不足
   renderer.setMeshData([{
     positions: [
       [-1, -1],
