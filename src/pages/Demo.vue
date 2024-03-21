@@ -1,6 +1,5 @@
 <template>
-  <div class="grid-bg"></div>
-  <canvas width="512" height="512"></canvas>
+  <canvas width="1024" height="1024"></canvas>
 </template>
 
 <script setup>
@@ -13,10 +12,27 @@ onMounted(() => {
     attribute vec2 uv;
     varying vec2 vUv;
 
+    uniform int scale; // 缩放比例
+    uniform vec2 offset; // 平移的偏移量
+
+    // 平移矩阵
+    mat3 translateMatrix = mat3(
+      1.0, 0.0, 0.0,
+      0.0, 1.0, 0.0,
+      offset.x, offset.y, 1.0
+    ); // (0,0)
+    // 缩放矩阵
+    mat3 scaleMatrix = mat3(
+      float(scale), 0.0, 0.0,
+      0.0, float(scale), 0.0,
+      0.0, 0.0, 1.0
+    );
+
     void main() {
       gl_PointSize = 1.0;
       vUv = uv;
-      gl_Position = vec4(a_vertexPosition, 1, 1);
+      vec3 pos = scaleMatrix * translateMatrix * vec3(a_vertexPosition, 1.0);
+      gl_Position = vec4(pos, 1.0);
     }
   `;
   const fragment = `
@@ -51,6 +67,8 @@ onMounted(() => {
   renderer.useProgram(program);
   // 设置uniform
   renderer.uniforms.rows = 64;
+  renderer.uniforms.scale = 1;
+  renderer.uniforms.offset = [0.0, 0.0];
   // 把数据送入缓冲区
   renderer.setMeshData([{
     positions: [
@@ -74,15 +92,55 @@ onMounted(() => {
   }]);
   // 渲染
   renderer.render();
-});
-</script>
 
-<style scoped>
-.grid-bg {
-  width: 256px;
-  height: 256px;
-  background-image: linear-gradient(to right, transparent 95%, #ccc 0), linear-gradient(to bottom, transparent 95%, #ccc 0);
-  background-size: 8px 8px, 8px 8px;
-  //background-repeat: repeat;
-}
-</style>
+
+  const wheelEventHandler = e => {
+    e.preventDefault();
+    if (e.wheelDeltaY > 0) { // 放大
+      if (renderer.uniforms.scale <= 50) {
+        renderer.uniforms.scale += 1;
+        renderer.render();
+      }
+    } else {
+      if (renderer.uniforms.scale > 2) {
+        renderer.uniforms.scale -= 1;
+      }
+    }
+  };
+
+  const lastPos = {}, lastCenter = {x: 0.0, y: 0.0};
+
+  const mouseDownHandler = e => {
+    e.preventDefault();
+    // 记录初始位置
+    lastPos.x = e.offsetX;
+    lastPos.y = e.offsetY;
+    canvas.addEventListener('mousemove', mouseMoverHandler);
+  }
+  const mouseMoverHandler = e => {
+    e.preventDefault();
+    const {offsetX: x, offsetY: y} = e;
+    const translateX = (x - lastPos.x) / canvas.width;
+    const translateY = (lastPos.y - y) / canvas.height; // 转换得到偏移量在WebGL中的对应数值
+    renderer.uniforms.offset = [translateX + lastCenter.x, translateY + lastCenter.y];
+  };
+  const mouseUpHandler = e => {
+    e.preventDefault();
+    const {offsetX: x, offsetY: y} = e;
+    const translateX = (x - lastPos.x) / canvas.width;
+    const translateY = (lastPos.y - y) / canvas.height; // 转换得到偏移量在WebGL中的对应数值
+    // 更新中心点信息
+    lastCenter.x = translateX + lastCenter.x;
+    lastCenter.y = translateY + lastCenter.y;
+    canvas.removeEventListener('mousemove', mouseMoverHandler);
+  }
+
+  const addEvent = () => {
+    canvas.addEventListener('mousewheel', wheelEventHandler);
+    canvas.addEventListener('mouseup', mouseUpHandler);
+    canvas.addEventListener('mousedown', mouseDownHandler);
+  }
+  addEvent();
+});
+
+</script>
