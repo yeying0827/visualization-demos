@@ -1,1 +1,0 @@
-import{M as o,H as n}from"./HorizontalTab-WccR3lNv.js";import{r,o as s,c as l,e,F as m}from"./index-s2wsuPQw.js";const b={__name:"index",setup(c){const t=[{path:"/webgl-basis/triangle",name:"三角形"},{path:"/webgl-basis/polygon",name:"多边形"}];return(i,p)=>{const a=r("router-view");return s(),l(m,null,[e(o,{title:"WebGL入门基础"}),e(n,{menus:t}),e(a)],64)}}};export{b as default};

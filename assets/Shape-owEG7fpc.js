@@ -1,1 +1,0 @@
-import{_ as s,o as t,c,F as o,b as e}from"./index-s2wsuPQw.js";const r={},n=e("h3",null,"使用SVG绘制几何图形",-1),a=e("svg",{xmlns:"http://www.w3.org/2000/svg",version:"1.1"},[e("circle",{cx:"100",cy:"50",r:"40",stroke:"black","stroke-width":"2",fill:"orange"})],-1);function l(_,i){return t(),c(o,null,[n,a],64)}const f=s(r,[["render",l]]);export{f as default};
