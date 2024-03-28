@@ -15,6 +15,8 @@ import {onMounted, ref, watch} from "vue";
 // 封装重构
 import {loadImage, getImageData, traverse} from "../../utils/ImageHandler.js";
 import {grayscale, transformColor} from "../../utils/color-matrix.js";
+// 导入图像
+import girl1 from '/src/assets/girl1.jpg';
 
 const tabs = [
   {name: "普通写法"},
@@ -52,7 +54,7 @@ const drawByTab = type => {
       console.log('case 0');
       (async function() {
         // 异步加载图片
-        const img = await localLoadImage('src/assets/girl1.jpg');
+        const img = await localLoadImage(girl1);
 
         const {width, height} = img;
         // 将图片绘制到canvas
@@ -83,7 +85,7 @@ const drawByTab = type => {
       console.log('case 1');
       (async function() {
         // 异步加载图片
-        const img = await loadImage('src/assets/girl1.jpg');
+        const img = await loadImage(girl1);
         // 获取图片的`imageData`数据对象
         const imageData = getImageData(img);
         // 遍历`imageData`数据对象
@@ -102,7 +104,7 @@ const drawByTab = type => {
       console.log('case 2');
       (async function() {
         // 异步加载图片
-        const img = await loadImage('src/assets/girl1.jpg');
+        const img = await loadImage(girl1);
         // 获取图片的`imageData`数据对象
         const imageData = getImageData(img);
         // 遍历`imageData`数据对象

@@ -9,6 +9,9 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {loadImage} from "../../utils/ImageHandler.js";
+// 导入图像
+import girl1 from '/src/assets/girl1.jpg';
+import girl2 from '/src/assets/girl2.jpg';
 
 const canvasRef = ref(null);
 const canvasRef2 = ref(null);
@@ -16,7 +19,7 @@ onMounted(() => {
   const context = canvasRef.value.getContext('2d');
 
   (async function() {
-    const img = await loadImage('src/assets/girl1.jpg');
+    const img = await loadImage(girl1);
     canvasRef.value.width = img.width;
     canvasRef.value.height = img.height;
 
@@ -27,7 +30,7 @@ onMounted(() => {
   const context2 = canvasRef2.value.getContext('2d');
 
   (async function() {
-    const img = await loadImage('src/assets/girl2.jpg');
+    const img = await loadImage(girl2);
     canvasRef2.value.width = img.width;
     canvasRef2.value.height = img.height;
 

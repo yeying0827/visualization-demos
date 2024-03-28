@@ -8,6 +8,8 @@
 <script setup>
 import {onMounted, reactive, ref} from "vue";
 import {getImageData, loadImage} from "../utils/ImageHandler.js";
+// 导入图像
+import girl1 from '/src/assets/girl1.jpg';
 
 const canvasRef = ref(null);
 const magnifier = ref(null);
@@ -27,7 +29,7 @@ onMounted(() => {
   const mContext = magnifier.value.getContext('2d');
 
   (async function() {
-    const img = await loadImage('src/assets/girl1.jpg');
+    const img = await loadImage(girl1);
     canvasRef.value.width = img.width;
     canvasRef.value.height = img.height;
     context.drawImage(img, 0, 0);

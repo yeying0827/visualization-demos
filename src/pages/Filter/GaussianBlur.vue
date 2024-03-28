@@ -7,6 +7,8 @@
 import {onMounted, ref} from "vue";
 // 封装重构
 import {loadImage, getImageData, gaussianBlur} from "../../utils/ImageHandler.js";
+// 导入图像
+import girl1 from '/src/assets/girl1.jpg';
 
 const canvasRef = ref(null);
 let context;
@@ -15,7 +17,7 @@ onMounted(() => {
 
   (async function() {
     // 异步加载图片
-    const img = await loadImage('src/assets/girl1.jpg');
+    const img = await loadImage(girl1);
     // 获取图片的`imageData`数据对象
     const imageData = getImageData(img);
     const {width, height, data} = imageData;

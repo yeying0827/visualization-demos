@@ -15,6 +15,8 @@ import {onMounted, ref, watch} from "vue";
 // 封装重构
 import {loadImage, getImageData, gaussianBlur, traverse} from "../../utils/ImageHandler.js";
 import {brightness, channel, contrast, grayscale, saturate, transformColor} from "../../utils/color-matrix.js";
+// 导入图像
+import girl2 from '/src/assets/girl2.jpg';
 
 const tabs = [
   {name: "原图"},
@@ -40,7 +42,7 @@ const drawByTab = type => {
       console.log('case 0');
       (async function() {
         // 异步加载图片
-        const img = await loadImage('src/assets/girl2.jpg');
+        const img = await loadImage(girl2);
         // 获取图片的`imageData`数据对象
         const imageData = getImageData(img);
         const {width, height, data} = imageData;
@@ -54,7 +56,7 @@ const drawByTab = type => {
       console.log('case 1');
       (async function() {
         // 异步加载图片
-        const img = await loadImage('src/assets/girl2.jpg');
+        const img = await loadImage(girl2);
         // 获取图片的`imageData`数据对象
         const imageData = getImageData(img);
         const {width, height, data} = imageData;

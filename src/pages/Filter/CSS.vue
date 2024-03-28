@@ -7,6 +7,7 @@
 </template>
 
 <script setup>
+// 导入图像
 import girl1 from '/src/assets/girl1.jpg';
 import girl2 from '/src/assets/girl2.jpg';
 </script>
