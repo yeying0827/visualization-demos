@@ -22,17 +22,18 @@ onMounted(() => {
 });
 
 const menus = [
-  { path: '/compare', name: '常见绘图系统' },
-  { path: '/directive', name: '指令式绘图系统' },
-  { path: '/statement', name: '声明式绘图系统' },
-  { path: '/webgl-basis', name: 'WebGL入门基础' },
-  { path: '/axis', name: '使用向量和坐标系' },
-  { path: '/vector', name: '向量的乘法' },
-  { path: '/curve', name: '描述曲线' },
-  { path: '/polygon', name: '处理多边形' },
-  { path: '/transform', name: '仿射变换' },
-  { path: '/color', name: '颜色表示' },
+  { path: '/filter', name: '滤镜函数' },
   { path: '/pattern', name: '图案生成' },
+  { path: '/color', name: '颜色表示' },
+  { path: '/transform', name: '仿射变换' },
+  { path: '/polygon', name: '处理多边形' },
+  { path: '/curve', name: '描述曲线' },
+  { path: '/vector', name: '向量的乘法' },
+  { path: '/axis', name: '使用向量和坐标系' },
+  { path: '/webgl-basis', name: 'WebGL入门基础' },
+  { path: '/statement', name: '声明式绘图系统' },
+  { path: '/directive', name: '指令式绘图系统' },
+  { path: '/compare', name: '常见绘图系统' },
 ];
 </script>
 
@@ -43,6 +44,7 @@ const menus = [
 
 .menu-box {
   width: 300px;
+  flex-shrink: 0;
 
   li {
     margin: 0 20px;
