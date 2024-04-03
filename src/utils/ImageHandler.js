@@ -73,7 +73,7 @@ function gaussianMatrix(radius, sigma = radius / 3) {
     const b = -1 / (2 * sigma ** 2);
     let sum = 0;
     const matrix = [];
-    // 按照一位高斯函数加权
+    // 按照一维高斯函数加权
     for (let x = -radius; x <= radius; x ++) {
         const g = a * Math.exp(b * x ** 2);
         matrix.push(g);

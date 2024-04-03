@@ -16,7 +16,7 @@ import {onMounted, ref, watch} from "vue";
 import {loadImage, getImageData, traverse} from "../../utils/ImageHandler.js";
 import {grayscale, transformColor} from "../../utils/color-matrix.js";
 // 导入图像
-import girl1 from '/src/assets/girl1.jpg';
+import girl1 from '@/assets/girl1.jpg';
 
 const tabs = [
   {name: "普通写法"},

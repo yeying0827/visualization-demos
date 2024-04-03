@@ -64,10 +64,10 @@ const drawByTab = type => {
         gaussianBlur(data, width, height);
         traverse(imageData, ({r, g, b, a}) => {
           return transformColor([r, g, b, a],
-              grayscale(0.5),
-              saturate(1.2),
-              contrast(1.1),
-              brightness(1.2),
+              grayscale(0.5), // 灰度化
+              saturate(1.2), // 增加饱和度
+              contrast(1.1), // 增强对比度
+              brightness(1.2), // 增强亮度
           )
         })
         // 更新canvas内容

@@ -12,6 +12,7 @@ export function grayscale(p = 1) {
     const g = 0.7152 * p;
     const b = 0.0722 * p;
 
+    // r + g + b = p;
     return [
         r + 1 - p, g,         b,         0, 0, // 1 - 0.7874p [1(p=0), 0.2126(p=1)]
         r,         g + 1 - p, b,         0, 0, // 1 - 0.2848p [1,      0.7152]
@@ -29,6 +30,7 @@ export function grayscale(p = 1) {
 export function transformColor(color, ...matrix) {
     const [r, g, b, a] = color;
     matrix = matrix.reduce((prev, current) => multiply(prev, current));
+    // 颜色向量与矩阵相乘
     color[0] = matrix[0]  * r + matrix[1] *  g + matrix[2]  * b + matrix[3]  * a + matrix[4];
     color[1] = matrix[5]  * r + matrix[6] *  g + matrix[7]  * b + matrix[8]  * a + matrix[9];
     color[2] = matrix[10] * r + matrix[11] * g + matrix[12] * b + matrix[13] * a + matrix[14];
