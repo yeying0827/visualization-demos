@@ -170,8 +170,10 @@ export default class WebGL {
         gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0)
         gl.enableVertexAttribArray(vPosition);
 
-        let uColor = gl.getUniformLocation(program, 'uColor'); // 设置颜色
-        gl.uniform4fv(uColor, color);
+        if (color) {
+            let uColor = gl.getUniformLocation(program, 'uColor'); // 设置颜色
+            gl.uniform4fv(uColor, color);
+        }
 
         gl.drawArrays(/*gl.LINE_LOOP*/gl.TRIANGLES, 0, points.length);
     }
@@ -191,5 +193,82 @@ export default class WebGL {
         //     console.log('tess2', triangles);
         // }
         triangles.forEach(t => this.drawTriangle(t, {color}));
+    }
+
+    drawCells(cells,
+              mode,
+              clear = true) {
+        const {gl} = this;
+
+        const cellBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cellBuffer);
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, cells, gl.STATIC_DRAW);
+
+        // 执行着色器程序完成绘制
+        if (clear) gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawElements(mode || gl.TRIANGLES, cells.length, gl.UNSIGNED_SHORT, 0);
+    }
+
+    /**
+     * 创建纹理对象
+     * @param img
+     * @returns {*}
+     */
+    createTexture(img) {
+        const {gl} = this;
+        // 创建纹理对象
+        const texture = gl.createTexture();
+
+        // 设置预处理函数，由于图片坐标系和WebGL坐标的Y轴是相反的，这个设置可以将图片Y坐标翻转一下
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+
+        // 激活指定纹理单元，WebGL有多个纹理单元，因此在Shader中可以使用多个纹理
+        gl.activeTexture(gl.TEXTURE0);
+
+        // 将纹理绑定到当前上下文
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+
+        // 指定纹理图像
+        gl.texImage2D(
+            gl.TEXTURE_2D,
+            0,
+            gl.RGBA,
+            // 1, // width
+            // 1, // height
+            // 0, // border
+            gl.RGBA,
+            gl.UNSIGNED_BYTE,
+            img
+        );
+
+        // 设置纹理的一些参数
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+        // 解除纹理绑定
+        gl.bindTexture(gl.TEXTURE_2D, null);
+
+        return texture;
+    }
+
+    /**
+     * 设置纹理
+     * @param texture
+     * @param fieldName
+     * @param idx 编号
+     */
+    setTexture(texture, fieldName, idx = 0) {
+        const {gl, program} = this;
+        // 激活纹理单元
+        gl.activeTexture(gl.TEXTURE0 + idx);
+        // 绑定纹理
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        // 获取Shader中纹理变量
+        const loc = gl.getUniformLocation(program, fieldName);
+        // 将对应的纹理单元写入Shader变量
+        gl.uniform1i(loc, idx);
+        // 解除纹理绑定
+        gl.bindTexture(gl.TEXTURE_2D, null);
     }
 }

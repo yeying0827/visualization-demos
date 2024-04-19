@@ -22,6 +22,7 @@ onMounted(() => {
 });
 
 const menus = [
+  { path: '/texture-and-complex-filter', name: '纹理和其他复杂滤镜' },
   { path: '/filter', name: '滤镜函数' },
   { path: '/pattern', name: '图案生成' },
   { path: '/color', name: '颜色表示' },

@@ -102,7 +102,7 @@ export function channel({r = 1, g = 1, b = 1}) {
 
 /**
  * 滤镜函数：改变亮度
- * @param p p=0 全暗；0<p<1 调暗； p=1 原色；p>1 调亮
+ * @param p `p=0 全暗；0<p<1 调暗； p=1 原色；p>1 调亮`
  * @returns {(*|number)[]}
  */
 export function brightness(p) {
@@ -168,8 +168,8 @@ export function opacity(p) {
 export function invert(p) {
     const d = 1 - 2 * p;
     return [
-        d, 0, 0, 0, p,
-        0, d, 0, 0, p,
+        d, 0, 0, 0, p, // p = 0, d = 1
+        0, d, 0, 0, p, // p = 1, d = -1
         0, 0, d, 0, p,
         0, 0, 0, 1, 0
     ];

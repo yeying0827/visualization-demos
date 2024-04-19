@@ -262,6 +262,7 @@ const mouseMoveHandler = e => {
   e.preventDefault();
   // 计算坐标差值并转换为Canvas差值
   const { offsetX: x, offsetY: y } = e;
+  // offsetX：事件发生的坐标距离当前元素内边界的横向距离
   const translateX = (x - lastPos.x) / patternPracticeRef.value.width;
   const translateY = (lastPos.y - y) / patternPracticeRef.value.height;
   // 设置偏移量

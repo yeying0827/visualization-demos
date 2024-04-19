@@ -53,13 +53,48 @@ export function traverse(imageData, pass) {
             index: i,
             width,
             height,
-            // 像素点对应的横纵坐标（百分比）：`i / 4`可以得出当前是像素点数组中的第几个
-            x: ((i / 4) % width) / width, // 每一列像素点`%width`求模得到的结果一样，相当于每一行的第几个，再`/ width`得到x坐标
-            y: Math.floor(i / 4 / width) / height // `i / 4 / width`得出像素点在第几行，再`/ height`得到y坐标
+            // 像素点对应的横纵坐标（百分比）：`i / 4`可以得出对应第几个像素
+            x: ((i / 4) % width) / width, // 每一列像素点`%width`求模得到的结果一样，相当于每一行的第几个，再`/ width`得到x坐标（百分比）
+            y: Math.floor(i / 4 / width) / height // `i / 4 / width`得出像素点在第几行，再`/ height`得到y坐标（百分比）
         });
         data.set([r, g, b, a].map(v => Math.round(v * 255)), i);
     }
     return imageData;
+}
+
+/**
+ * 获取像素归一化信息
+ * @param imageData
+ * @param index 像素数组下标
+ * @returns {number[]}
+ */
+export function getPixel(imageData, index) {
+    const {data} = imageData;
+    const r = data[index] / 255,
+        g = data[index + 1] /255,
+        b = data[index + 2] / 255,
+        a = data[index + 3] / 255;
+    return [r, g, b, a];
+}
+
+/**
+ * 获取像素归一化信息
+ * @param imageData
+ * @param x x坐标（百分比）
+ * @param y y坐标（百分比）
+ * @returns {null|number[]}
+ */
+export function getPixelXY(imageData, x, y) {
+    const {width, height} = imageData;
+    if (x < 0 || y < 0 || x >= 1 || y >= 1) {
+        return null;
+    }
+    // 按比例获取对应x和y坐标
+    x = Math.floor(width * x);
+    y = Math.floor(height * y);
+    // 获取在像素数组中的下标
+    const idx = 4 * (y * width + x);
+    return getPixel(imageData, idx);
 }
 
 /**
@@ -68,7 +103,7 @@ export function traverse(imageData, pass) {
  * @param sigma {number}
  * @returns {{sum: number, matrix: number[]}}
  */
-function gaussianMatrix(radius, sigma = radius / 3) {
+export function gaussianMatrix(radius, sigma = radius / 3) {
     const a = 1 / (Math.sqrt(2 * Math.PI) * sigma);
     const b = -1 / (2 * sigma ** 2);
     let sum = 0;

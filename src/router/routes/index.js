@@ -1,6 +1,7 @@
 import Home from "../../pages/Home.vue";
 import Demo from "../../pages/Demo.vue";
 import DemoMagnifier from "../../pages/DemoMagnifier.vue";
+import DemoCircle from "../../pages/DemoCircle.vue";
 import compare from "./compare.js"; // 常见绘图系统
 import directive from "./directive.js"; // 指令式绘图系统
 import statement from "./statement.js"; // 声明式绘图系统
@@ -13,13 +14,14 @@ import transform from "./transform.js"; // 仿射变换
 import color from "./color.js"; // 颜色表示
 import pattern from "./pattern.js"; // 图案生成
 import filter from "./filter.js"; // 滤镜函数
+import textureAndComplexFilter from "./texture-and-complex-filter.js"; // 滤镜函数
 
 export default [
     {
         path: '/',
         name: 'Home',
         component: Home,
-        redirect: '/filter',
+        redirect: '/texture-and-complex-filter',
         children: [
             compare,
             directive,
@@ -33,6 +35,7 @@ export default [
             color,
             pattern,
             filter,
+            textureAndComplexFilter,
         ]
     },
     {
@@ -44,5 +47,10 @@ export default [
         path: '/demo-magnifier',
         name: 'DemoMagnifier',
         component: DemoMagnifier
+    },
+    {
+        path: '/demo-circle',
+        name: 'DemoCircle',
+        component: DemoCircle
     }
 ]
