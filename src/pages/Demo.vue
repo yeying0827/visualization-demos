@@ -113,20 +113,20 @@ onMounted(() => {
   const mouseDownHandler = e => {
     e.preventDefault();
     // 记录初始位置
-    lastPos.x = e.offsetX;
+    lastPos.x = e.offsetX; // offsetX和offsetY可以理解为坐标原点为左上角，X轴向右，Y轴向下
     lastPos.y = e.offsetY;
     canvas.addEventListener('mousemove', mouseMoverHandler);
   }
   const mouseMoverHandler = e => {
     e.preventDefault();
-    const {offsetX: x, offsetY: y} = e;
+    const {offsetX: x, offsetY: y} = e; // offsetX和offsetY可以理解为坐标原点为左上角，X轴向右，Y轴向下
     const translateX = (x - lastPos.x) / canvas.width;
     const translateY = (lastPos.y - y) / canvas.height; // 转换得到偏移量在WebGL中的对应数值
     renderer.uniforms.offset = [translateX + lastCenter.x, translateY + lastCenter.y];
   };
   const mouseUpHandler = e => {
     e.preventDefault();
-    const {offsetX: x, offsetY: y} = e;
+    const {offsetX: x, offsetY: y} = e; // offsetX和offsetY可以理解为坐标原点为元素左上角，X轴向右，Y轴向下
     const translateX = (x - lastPos.x) / canvas.width;
     const translateY = (lastPos.y - y) / canvas.height; // 转换得到偏移量在WebGL中的对应数值
     // 更新中心点信息
