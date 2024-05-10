@@ -21,6 +21,7 @@ const tabs = [
   {name: "正方形环"},
   {name: "正六边形环"},
   {name: "椭圆环"},
+  {name: "正六角星"},
 ];
 
 const checkedTab = ref(5);
@@ -408,6 +409,78 @@ const fragment5 = `
     gl_FragColor.a = 1.0;
   }
 `;
+// 正六角星
+const fragment6 = `
+  #define PI 3.1415926535897932384626433832795
+  #ifdef GL_ES
+  precision highp float;
+  #endif
+
+  varying vec2 vUv;
+  uniform sampler2D tMap;
+  uniform float uTime;
+
+  ${distanceFunction}
+
+  // 以极坐标方式计算
+  float polygon_distance2(in vec2 st, in int edges, in vec2 start) {
+    float delta = PI / float(edges);
+    mat2 rotation = mat2(
+      cos(delta), sin(delta),
+      -sin(delta), cos(delta)
+    );
+
+    // 赋初始值
+    // 偶数点长半径，奇数点短半径
+    vec2 startPoint = vec2(start); // 第一个点
+    vec2 midPoint = 2.0 * rotation * startPoint; // 第二个点
+    vec2 endPoint = rotation * rotation * startPoint; // 第三个点
+
+    float minSeg = seg_distance(st, startPoint, endPoint); // 点到线段的距离
+    float lineSign = sign(line_distance(st, startPoint, endPoint)); // 点到向量的距离的符号
+    float triangleD = triangle_distance(st, startPoint, midPoint, endPoint);
+
+    bool isInner = true;
+    bool isInTriangle = false;
+    int count = 2;
+    // 循环
+    for(int i = 2; i < 32767; i ++) {
+      if (count > edges * 2) break;
+      count = count + 2;
+      // 在三角形内部就返回
+      if (triangleD <= 0.0) return triangleD;
+
+      startPoint = endPoint;
+      midPoint = 2.0 * rotation * startPoint;
+      endPoint = rotation * rotation * startPoint;
+
+      triangleD = triangle_distance(st, startPoint, midPoint, endPoint);
+
+      minSeg = min(minSeg, seg_distance(st, startPoint, endPoint)); // 点到两条线段的距离的较小值
+      minSeg = min(minSeg, triangleD);
+
+      if (isInner && lineSign != sign(line_distance(st, startPoint, endPoint))) { // 两个叉乘结果符号不一致，说明在图形外部
+        isInner = false;
+      }
+    }
+    return isInner ? -minSeg : minSeg;
+  }
+
+  void main() {
+    float d = polygon_distance2(
+      vUv - vec2(0.5), // 以圆心坐标计算出的色值，给(0.5,0.5)坐标上色，相当于将图形向右上方挪动
+      6,
+      // vec2(0.13, 0.05)
+      vec2(0.2, 0.0) // 起始点
+    );
+
+    // d = fract(20.0 * abs(d));
+    // gl_FragColor.rgb = (smoothstep(0.45, 0.5, d) - smoothstep(0.5, 0.55, d)) * vec3(1.0);
+
+    gl_FragColor.rgb = (1.0 - smoothstep(0.0, 0.01, d)) * vec3(1.0);
+    gl_FragColor.a = 1.0;
+  }
+`;
 
 let renderer, program;
 
@@ -453,6 +526,11 @@ const drawByTab = value => {
     case 5:
       renderer = new GlRenderer(glRef.value);
       program = renderer.compileSync(fragment5, vertex);
+      renderer.useProgram(program);
+      break;
+    case 6:
+      renderer = new GlRenderer(glRef.value);
+      program = renderer.compileSync(fragment6, vertex);
       renderer.useProgram(program);
       break;
   }
