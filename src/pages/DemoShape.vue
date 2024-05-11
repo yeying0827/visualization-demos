@@ -7,6 +7,7 @@
 <script setup>
 import {onMounted, ref, watch} from "vue";
 import GlRenderer from "gl-renderer";
+import roadjpeg from '@/assets/road.jpeg';
 
 const glRef = ref(null);
 
@@ -40,11 +41,9 @@ const fragment = `
     vec3 ab = vec3(b - a, 0);
     vec3 p = vec3(st - a, 0);
     float l = length(ab);
-    float d = abs(
-      cross(p, normalize(ab))
-    ).z;
+    float d = abs(cross(p, normalize(ab)).z);
     float proj = dot(p, ab) / l;
-    if (proj >= 0.0 && proj <=l) return d;
+    if (proj >= 0.0 && proj <= l) return d;
     return min(distance(st, a), distance(st, b));
   }
 
@@ -55,11 +54,11 @@ const fragment = `
     float d3 = line_distance(st, c, a);
 
     if (d1 >= 0.0 && d2 >= 0.0 && d3 >= 0.0
-      || d1 <= 0.0 && d2 <= 0.0 && d3 <= 0.0) {
-      return -min(abs(d1), min(abs(d2), abs(d3))); // 内部距离为负
+      || d1 <= 0.0 && d2 <= 0.0 && d3 <= 0.0) { // 在三角形内部
+      return -min(abs(d1), min(abs(d2), abs(d3))); // 负数
     }
 
-    return min(seg_distance(st, a, b), min(seg_distance(st, b, c), seg_distance(st, c, a))); // 外部距离为正
+    return min(seg_distance(st, a, b), min(seg_distance(st, b, c), seg_distance(st, c, a)));
   }
 
   void main() {
@@ -69,8 +68,27 @@ const fragment = `
       vec2(0.5, 0.7),
       vec2(0.7, 0.3)
     );
-    gl_FragColor.rgb = smoothstep(0.01, 0.0, d) * vec3(1.0);
+
+    d = fract(20.0 * d);
+    gl_FragColor.rgb = (smoothstep(0.45, 0.5, d) - smoothstep(0.5, 0.55, d)) * vec3(1.0);
+
     gl_FragColor.a = 1.0;
+  }
+`;
+const fragment1 = `
+  #ifdef GL_ES
+  precision highp float;
+  #endif
+
+  varying vec2 vUv;
+  uniform sampler2D tMap;
+
+  void main() {
+    vec4 color = texture2D(tMap, vUv);
+    float d = distance(vUv, vec2(0.5, 0.5));
+    // gl_FragColor.rgb = (1.0 - smoothstep(0.4, 0.4005, d)) * vec3(1.0);
+    gl_FragColor.rgb = (1.0 - smoothstep(0.4, 0.4005, d)) * color.rgb;
+    gl_FragColor.a = (1.0 - smoothstep(0.4, 0.4005, d));
   }
 `;
 
@@ -80,6 +98,12 @@ onMounted(() => {
   renderer = new GlRenderer(glRef.value);
   program = renderer.compileSync(fragment, vertex);
   renderer.useProgram(program);
+
+  // (async function() {
+  //   program = renderer.compileSync(fragment1, vertex);
+  //   renderer.useProgram(program);
+  //   renderer.uniforms.tMap = await renderer.loadTexture(roadjpeg);
+  // }());
 
   // 写数据并渲染
   bufferDataAndRender();

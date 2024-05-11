@@ -3,6 +3,7 @@ import Demo from "../../pages/Demo.vue";
 import DemoMagnifier from "../../pages/DemoMagnifier.vue";
 import DemoCircle from "../../pages/DemoCircle.vue";
 import DemoMosaic from "../../pages/DemoMosaic.vue";
+import DemoShape from "../../pages/DemoShape.vue";
 import compare from "./compare.js"; // 常见绘图系统
 import directive from "./directive.js"; // 指令式绘图系统
 import statement from "./statement.js"; // 声明式绘图系统
@@ -60,5 +61,10 @@ export default [
         path: '/demo-mosaic',
         name: 'DemoMosaic',
         component: DemoMosaic
+    },
+    {
+        path: '/demo-shape',
+        name: 'DemoShape',
+        component: DemoShape
     }
 ]
