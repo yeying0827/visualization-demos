@@ -18,13 +18,14 @@ import pattern from "./pattern.js"; // 图案生成
 import filter from "./filter.js"; // 滤镜函数
 import textureAndComplexFilter from "./texture-and-complex-filter.js"; // 给简单图案添加纹理和复杂滤镜
 import fragmentShape from "./fragment-shape.js"; // 使用片元着色器进行几何造型
+import polar from "./polar.js"; // 用极坐标系绘制有趣图案
 
 export default [
     {
         path: '/',
         name: 'Home',
         component: Home,
-        redirect: '/texture-and-complex-filter',
+        redirect: '/polar',
         children: [
             compare,
             directive,
@@ -40,6 +41,7 @@ export default [
             filter,
             textureAndComplexFilter,
             fragmentShape,
+            polar,
         ]
     },
     {

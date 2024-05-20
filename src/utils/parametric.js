@@ -1,7 +1,14 @@
 /*
 * 高阶参数方程绘图模块
 * */
-export default function parametric(xFunc, yFunc) {
+/**
+ * 参数方程模块
+ * @param xFunc 生成X坐标的函数
+ * @param yFunc 生成Y坐标的函数
+ * @param rFunc 坐标映射
+ * @returns {function(*, *, *=, ...[*]): {draw: *, points: []}}
+ */
+export default function parametric(xFunc, yFunc, rFunc) {
     return function(start, end, seg = 100, ...args) {
         const points = [];
         for (let i = 0; i <= seg; i ++) {
@@ -11,7 +18,8 @@ export default function parametric(xFunc, yFunc) {
             // console.log(t);
             const x = xFunc(t, ...args);
             const y = yFunc(t, ...args);
-            points.push([x, y]);
+            if (rFunc) points.push(rFunc(x, y));
+            else points.push([x, y]);
         }
         return {
             draw: draw.bind(null, points),
