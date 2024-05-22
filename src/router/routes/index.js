@@ -4,6 +4,8 @@ import DemoMagnifier from "../../pages/DemoMagnifier.vue";
 import DemoCircle from "../../pages/DemoCircle.vue";
 import DemoMosaic from "../../pages/DemoMosaic.vue";
 import DemoShape from "../../pages/DemoShape.vue";
+import DemoPolar from "../../pages/DemoPolar.vue";
+import DemoPolar2D from "../../pages/DemoPolar2D.vue";
 import compare from "./compare.js"; // 常见绘图系统
 import directive from "./directive.js"; // 指令式绘图系统
 import statement from "./statement.js"; // 声明式绘图系统
@@ -68,5 +70,15 @@ export default [
         path: '/demo-shape',
         name: 'DemoShape',
         component: DemoShape
+    },
+    {
+        path: '/demo-polar',
+        name: 'DemoPolar',
+        component: DemoPolar
+    },
+    {
+        path: '/demo-polar-2d',
+        name: 'DemoPolar2D',
+        component: DemoPolar2D
     }
 ]
