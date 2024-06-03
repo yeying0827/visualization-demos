@@ -22,6 +22,7 @@ onMounted(() => {
 });
 
 const menus = [
+  { path: '/noise', name: '噪声生成复杂纹理' },
   { path: '/polar', name: '极坐标绘制图案' },
   { path: '/fragment-shape', name: '片元着色器-几何造型' },
   { path: '/texture-and-complex-filter', name: '纹理和其他复杂滤镜' },

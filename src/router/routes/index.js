@@ -6,6 +6,7 @@ import DemoMosaic from "../../pages/DemoMosaic.vue";
 import DemoShape from "../../pages/DemoShape.vue";
 import DemoPolar from "../../pages/DemoPolar.vue";
 import DemoPolar2D from "../../pages/DemoPolar2D.vue";
+import DemoNoise from "../../pages/DemoNoise.vue";
 import compare from "./compare.js"; // 常见绘图系统
 import directive from "./directive.js"; // 指令式绘图系统
 import statement from "./statement.js"; // 声明式绘图系统
@@ -21,13 +22,14 @@ import filter from "./filter.js"; // 滤镜函数
 import textureAndComplexFilter from "./texture-and-complex-filter.js"; // 给简单图案添加纹理和复杂滤镜
 import fragmentShape from "./fragment-shape.js"; // 使用片元着色器进行几何造型
 import polar from "./polar.js"; // 用极坐标系绘制有趣图案
+import noise from "./noise.js"; // 用噪声生成复杂的纹理
 
 export default [
     {
         path: '/',
         name: 'Home',
         component: Home,
-        redirect: '/polar',
+        redirect: '/noise',
         children: [
             compare,
             directive,
@@ -44,6 +46,7 @@ export default [
             textureAndComplexFilter,
             fragmentShape,
             polar,
+            noise,
         ]
     },
     {
@@ -80,5 +83,10 @@ export default [
         path: '/demo-polar-2d',
         name: 'DemoPolar2D',
         component: DemoPolar2D
+    },
+    {
+        path: '/demo-noise',
+        name: 'DemoNoise',
+        component: DemoNoise
     }
 ]
