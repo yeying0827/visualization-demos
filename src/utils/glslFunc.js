@@ -187,6 +187,23 @@ export const distance = {
     star: starDistanceFunction
 };
 
+const hsbColor = `
+  // Function from Inigo Quiles
+  vec3 hsb2rgb(vec3 c) {
+    vec3 rgb = clamp(
+      abs(mod(c.x * 6.0 + vec3(0.0, 4.0, 2.0), 6.0) - 3.0) - 1.0,
+      0.0,
+      1.0
+    );
+    rgb = rgb * rgb * (3.0 - 2.0 * rgb);
+    return c.z * mix(vec3(1.0), rgb, c.y);
+  }
+`;
+
+export const color = {
+    hsb: hsbColor
+};
+
 const random = `
   // 随机函数
   float random (float x) {
@@ -210,7 +227,7 @@ const random2vec = `
       dot(st, vec2(127.1, 311.7)),
       dot(st, vec2(269.5, 183.3))
     );
-    return fract(sin(st) * 43758.5453123); // x和y：-1~1
+    return fract(sin(st) * 43758.5453123); // x和y：0~1
   }
 `;
 
@@ -234,7 +251,7 @@ const noise_gradient = `
   ${random2vec}
   
   vec2 random2(vec2 st) {
-    return -1.0 + 2.0 * random2vec(st);
+    return -1.0 + 2.0 * random2vec(st); // x和y：-1~1
   }
 
   // Gradient Noise by Inigo Quilez - iq/2013

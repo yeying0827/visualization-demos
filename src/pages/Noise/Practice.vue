@@ -51,6 +51,8 @@ const fragment = `
       for (int j = -1; j <= 1; j ++) {
         vec2 neighbor = vec2(float(i), float(j)); // 坐标x和y：-1~1
         vec2 p = random2(i_st + neighbor); // 9个随机特征点在自身网格内的坐标（坐标x和y：0~1）
+        // 这里 6.2831 即 2PI 是为了保证：新的 o 的取值范围，在一帧内（固定 uTime），也是 0~1
+        // 2PI 使得 sin 的周期变为 1，这样当 o 取值 0~1，sin 就能取尽 -1~1
         p = 0.5 + 0.5 * sin(uTime + 6.2831 * p);
         vec2 r = neighbor + p - f_st; // 特征点与当前点的向量，neighbor+p（坐标X和Y：-1~2）
         float m_dist = length(r); // 两个点之间的距离
@@ -77,17 +79,22 @@ const fragment = `
           // 思路：利用三角形外心计算
           // 其他特征点到最小距离特征点形成向量a1 = r - mr， 片元到a1中心点形成向量a2 = (mr + r) / 2
           // 则a2在a1上面的投影（点乘）就是距离场，求这个距离场的最小距离
+          // @Q: 投影随 特征向量、像素坐标 是怎么变化的？如何直观地映射到视觉上的几何变化？这里投影有可能为负值吗？需要作图
           d = min(d, dot(0.5 * (mr + r), normalize(r - mr)));
         // }
       }
     }
 
     // 等高线
-    color = d * fract(d * 13.5) * vec3(1.0);
+    color = d * fract(d * 15.0 / 2.0) * vec3(1.0);
     // 边框线
     color = mix(vec3(1.0), color, smoothstep(0.01, 0.02, d));
     // 标记特征点
     color += step(length(mr), 0.02);
+
+    if (f_st.x < 0.01 || f_st.y < 0.01) {
+      color = vec3(1.0);
+    }
 
     gl_FragColor.rgb = color;
     gl_FragColor.a = 1.0;

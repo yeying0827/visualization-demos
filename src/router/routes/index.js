@@ -23,13 +23,14 @@ import textureAndComplexFilter from "./texture-and-complex-filter.js"; // 给简
 import fragmentShape from "./fragment-shape.js"; // 使用片元着色器进行几何造型
 import polar from "./polar.js"; // 用极坐标系绘制有趣图案
 import noise from "./noise.js"; // 用噪声生成复杂的纹理
+import postProcessChannel from "./post-process-channel.js"; // 使用后期处理通道增强图像效果
 
 export default [
     {
         path: '/',
         name: 'Home',
         component: Home,
-        redirect: '/noise',
+        redirect: '/post-process-channel',
         children: [
             compare,
             directive,
@@ -47,6 +48,7 @@ export default [
             fragmentShape,
             polar,
             noise,
+            postProcessChannel,
         ]
     },
     {

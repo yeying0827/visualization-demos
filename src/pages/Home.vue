@@ -22,6 +22,7 @@ onMounted(() => {
 });
 
 const menus = [
+  { path: '/post-process-channel', name: '使用后期处理通道' },
   { path: '/noise', name: '噪声生成复杂纹理' },
   { path: '/polar', name: '极坐标绘制图案' },
   { path: '/fragment-shape', name: '片元着色器-几何造型' },
