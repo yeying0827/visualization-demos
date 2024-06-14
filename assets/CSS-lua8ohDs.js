@@ -1,1 +1,0 @@
-import{_ as c,o,c as t,F as _,p as n,a as d,b as a}from"./index-8v8F2D54.js";const r={},s=e=>(n("data-v-1ae616f3"),e=e(),d(),e),p=s(()=>a("h3",null,"CSS生成网格背景",-1)),l=s(()=>a("div",{class:"grid-bg"},null,-1));function f(e,i){return o(),t(_,null,[p,l],64)}const S=c(r,[["render",f],["__scopeId","data-v-1ae616f3"]]);export{S as default};
