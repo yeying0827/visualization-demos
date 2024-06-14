@@ -7,6 +7,7 @@ import DemoShape from "../../pages/DemoShape.vue";
 import DemoPolar from "../../pages/DemoPolar.vue";
 import DemoPolar2D from "../../pages/DemoPolar2D.vue";
 import DemoNoise from "../../pages/DemoNoise.vue";
+import DemoPPS from "../../pages/DemoPPS.vue";
 import compare from "./compare.js"; // 常见绘图系统
 import directive from "./directive.js"; // 指令式绘图系统
 import statement from "./statement.js"; // 声明式绘图系统
@@ -90,5 +91,10 @@ export default [
         path: '/demo-noise',
         name: 'DemoNoise',
         component: DemoNoise
+    },
+    {
+        path: '/demo-pps',
+        name: 'DemoPPS',
+        component: DemoPPS
     }
 ]
