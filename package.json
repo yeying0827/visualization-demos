@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bezier-easing": "^2.1.0",
     "cubehelix": "^1.0.4",
     "d3-color": "^3.1.0",
     "d3-hierarchy": "1.1.5",
