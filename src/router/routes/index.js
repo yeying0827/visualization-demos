@@ -26,13 +26,14 @@ import polar from "./polar.js"; // 用极坐标系绘制有趣图案
 import noise from "./noise.js"; // 用噪声生成复杂的纹理
 import postProcessChannel from "./post-process-channel.js"; // 使用后期处理通道增强图像效果
 import animation from "./animation.js"; // 生成简单动画让图形动起来
+import animationShader from "./animation-shader.js"; // 用着色器实现像素动画
 
 export default [
     {
         path: '/',
         name: 'Home',
         component: Home,
-        redirect: '/post-process-channel',
+        redirect: '/animation-shader',
         children: [
             compare,
             directive,
@@ -52,6 +53,7 @@ export default [
             noise,
             postProcessChannel,
             animation,
+            animationShader,
         ]
     },
     {

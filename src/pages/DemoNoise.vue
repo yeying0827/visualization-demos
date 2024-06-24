@@ -70,6 +70,7 @@ const fragment1 = `
 
   varying vec2 vUv;
 
+  ${noise.random2d}
   ${noise.noise_value}
 
   void main() {
@@ -101,6 +102,7 @@ const fragment3 = `
   varying vec2 vUv;
   uniform float uTime;
 
+  ${noise.random2d}
   ${noise.noise_value}
 
   // Function from Inigo Quiles

@@ -95,7 +95,7 @@ const drawByTab = type => {
   background-repeat: no-repeat;
   background-image: url("@/assets/bird.png");
   background-position: -178px -2px;
-  animation: flappy .5s step-end infinite;
+  animation: flappy .5s step-end infinite;/*step-end 会使 keyframes 动画到了定义的关键帧处直接突变,并没有变化的过程*/
 }
 @keyframes flappy {
   0%  {background-position: -178px -2px;}

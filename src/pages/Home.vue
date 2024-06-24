@@ -22,6 +22,7 @@ onMounted(() => {
 });
 
 const menus = [
+  { path: '/animation-shader', name: '用着色器生成像素动画' },
   { path: '/animation', name: '生成简单动画' },
   { path: '/post-process-channel', name: '使用后期处理通道' },
   { path: '/noise', name: '噪声生成复杂纹理' },
