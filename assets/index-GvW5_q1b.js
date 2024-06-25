@@ -1,0 +1,1 @@
+import{M as a,H as n}from"./HorizontalTab-P6RmUu1J.js";import{r,o as s,c,e,F as m}from"./index-Yh4SR2m9.js";const v={__name:"index",setup(i){const t=[{path:"/vector/basis",name:"基础使用"},{path:"/vector/distance",name:"应用：点到线段和直线的距离"}];return(p,_)=>{const o=r("router-view");return s(),c(m,null,[e(a,{title:"向量的乘法"}),e(n,{menus:t}),e(o)],64)}}};export{v as default};
