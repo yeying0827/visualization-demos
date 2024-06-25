@@ -8,6 +8,8 @@ import DemoPolar from "../../pages/DemoPolar.vue";
 import DemoPolar2D from "../../pages/DemoPolar2D.vue";
 import DemoNoise from "../../pages/DemoNoise.vue";
 import DemoPPS from "../../pages/DemoPPS.vue";
+import DemoAnimation from "../../pages/DemoAnimation.vue";
+import DemoAnimationShader from "../../pages/DemoAnimationShader.vue";
 import compare from "./compare.js"; // 常见绘图系统
 import directive from "./directive.js"; // 指令式绘图系统
 import statement from "./statement.js"; // 声明式绘图系统
@@ -100,5 +102,15 @@ export default [
         path: '/demo-pps',
         name: 'DemoPPS',
         component: DemoPPS
+    },
+    {
+        path: '/demo-animation',
+        name: 'DemoAnimation',
+        component: DemoAnimation
+    },
+    {
+        path: '/demo-animation-shader',
+        name: 'DemoAnimationShader',
+        component: DemoAnimationShader
     }
 ]
