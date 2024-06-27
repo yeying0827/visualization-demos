@@ -13,7 +13,7 @@
 <script setup>
 import {onMounted, ref, watch} from 'vue';
 import GlRenderer from "gl-renderer";
-import { noise } from '../utils/glslFunc.js';
+import { noise } from '../../utils/glslFunc.js';
 
 const tabs = [
   {name: "插值噪声Value Noise一维"},

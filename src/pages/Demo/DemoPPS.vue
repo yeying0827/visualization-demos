@@ -6,7 +6,7 @@
 <script setup>
 import {onMounted, ref} from 'vue';
 import GlRenderer from "gl-renderer";
-import {distance, noise, color} from "../utils/glslFunc.js";
+import {distance, noise, color} from "../../utils/glslFunc.js";
 
 const glRef = ref(null);
 

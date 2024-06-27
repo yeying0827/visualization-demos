@@ -5,8 +5,8 @@
 
 <script setup>
 import {onMounted, ref} from "vue";
-import Canvas2D from "../utils/Canvas.js";
-import parametric from "../utils/parametric.js";
+import Canvas2D from "../../utils/Canvas.js";
+import parametric from "../../utils/parametric.js";
 
 const canvasRef = ref(null);
 onMounted(() => {

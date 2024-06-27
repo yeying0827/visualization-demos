@@ -7,7 +7,7 @@
 
 <script setup>
 import {onMounted, reactive, ref} from "vue";
-import {getImageData, loadImage} from "../utils/ImageHandler.js";
+import {getImageData, loadImage} from "../../utils/ImageHandler.js";
 // 导入图像
 import girl1 from '/src/assets/girl1.jpg';
 

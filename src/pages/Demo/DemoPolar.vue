@@ -5,7 +5,7 @@
 <script setup>
 import {onMounted, ref} from 'vue';
 import GlRenderer from 'gl-renderer';
-import {distance} from "../utils/glslFunc.js";
+import {distance} from "../../utils/glslFunc.js";
 
 const glRef = ref(null);
 const vertex = `

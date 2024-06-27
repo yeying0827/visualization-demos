@@ -12,7 +12,7 @@
 
 <script setup>
 import {onMounted, ref} from "vue";
-import WebGL from "../utils/WebGL.js";
+import WebGL from "../../utils/WebGL.js";
 
 const canvas2dRef = ref(null);
 const webglRef = ref(null);

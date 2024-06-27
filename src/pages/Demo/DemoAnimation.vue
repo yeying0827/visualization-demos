@@ -34,7 +34,7 @@
 
 <script setup>
 import {onMounted, ref, watch} from "vue";
-import {Animator} from "../utils/animation-index.js";
+import {Animator} from "../../utils/animation-index.js";
 import BesizerEasing from "bezier-easing";
 
 const tabs = [

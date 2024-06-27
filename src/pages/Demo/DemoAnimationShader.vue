@@ -14,7 +14,7 @@
 import {onMounted, ref, watch} from "vue";
 import GlRenderer from "gl-renderer";
 import birdpng from '@/assets/bird.png';
-import {Animator} from "../utils/animation.js";
+import {Animator} from "../../utils/animation-index.js";
 import BesizerEasing from "bezier-easing";
 
 const tabs = [
