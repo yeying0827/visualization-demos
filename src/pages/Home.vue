@@ -22,6 +22,7 @@ onMounted(() => {
 });
 
 const menus = [
+  { path: '/3d', name: '用WebGL绘制3D物体' },
   { path: '/animation-shader', name: '用着色器生成像素动画' },
   { path: '/animation', name: '生成简单动画' },
   { path: '/post-process-channel', name: '使用后期处理通道' },
