@@ -1,0 +1,1 @@
+import{M as r,H as n}from"./HorizontalTab-kAre_FEn.js";import{j as o,a as s,c,k as e,F as i}from"./index-a4tGsWeP.js";const h={__name:"index",setup(m){const t=[{path:"/directive/shape",name:"几何图形"},{path:"/directive/hierarchy",name:"层次关系图"}];return(p,_)=>{const a=o("router-view");return s(),c(i,null,[e(r,{title:"指令式绘图系统"}),e(n,{menus:t}),e(a)],64)}}};export{h as default};

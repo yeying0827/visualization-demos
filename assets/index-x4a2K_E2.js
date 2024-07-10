@@ -1,0 +1,1 @@
+import{M as n,H as o}from"./HorizontalTab-kAre_FEn.js";import{j as r,a as s,c as m,k as e,F as c}from"./index-a4tGsWeP.js";const h={__name:"index",setup(p){const t=[{path:"/statement/shape",name:"几何图形"},{path:"/statement/hierarchy",name:"层次关系图"}];return(i,_)=>{const a=r("router-view");return s(),m(c,null,[e(n,{title:"声明式绘图系统"}),e(o,{menus:t}),e(a)],64)}}};export{h as default};
