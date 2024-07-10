@@ -55,6 +55,11 @@ export default [
         path: '/demo-animation-shader',
         name: 'DemoAnimationShader',
         component: _import('DemoAnimationShader')
+    },
+    {
+        path: '/demo-3d',
+        name: 'Demo3D',
+        component: _import('Demo3D')
     }
 ]
 
